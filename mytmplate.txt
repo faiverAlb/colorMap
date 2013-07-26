@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <style type="text/css">
+         body,html
+{
+	background: #e4e4e4;
+	background-attachment: fixed;
+	background-image: url('http://c632769.r69.cf2.rackcdn.com/ozadje_001.png');
+	background-position: top center;
+	background-repeat: repeat-y;
+	font: 14px helvetica, arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+#colorcodes
+{
+	margin: 0 auto;
+	width: 981px;
+}
+
+#main
+{
+	color: #4d4d4d;
+	float: left;
+	margin-left: 30px;
+	width: 622px;
+}
+
+#colorchart
+{
+	border: 0;
+	border-collapse: collapse;
+	padding: 0;
+}
+#colorchart td
+{
+	height: 23px;
+	width: 23px;
+}
+      </style>
+      <title>Html Color Codes</title>
+   </head>
+   <body>
+      <div id="colorcodes">
+         <div id="main">
+            <table id="colorchart">
+                 {% for colorGroup in colors %}
+                  <tr>
+                  {% for color in colorGroup %}
+                        <td bgColor="{{color}}"></td>
+                  {% endfor %}
+                  </tr>
+                 {% endfor %}
+
+            </table>
+         </div>
+      </div>
+   </body>
+</html>
