@@ -2,7 +2,7 @@ __author__ = 'Gizetdinov.A'
 
 import itertools
 import sys
-from colour import Color
+import webcolors
 from jinja2 import Environment, FileSystemLoader
 
 
@@ -29,18 +29,16 @@ def main():
     groupCount = 30
     input_file = open(incomeFile)
     colors = []
-    stop_words = ['the', 'that', 'to', 'as', 'there', 'has', 'and', 'or', 'is', 'not', 'a', 'of', 'but', 'in', 'by',
-                  'on', 'are', 'it', 'if']
     for line in input_file:
         words = line.split()
         for word in words:
-            if word not in stop_words and len(word) > 2:
-                try:
-                    c = Color(word)
-                    colors.append(c.get_web())
-                except:
-                    pass
-    WriteHtml(list(Grouper(groupCount, colors)), outputFile, templateFile)
+            try:
+                c = webcolors.name_to_rgb(word)
+                colors.append(c)
+            except:
+                pass
+    groupedItems =list(Grouper(groupCount, colors))
+    WriteHtml(groupedItems, outputFile, templateFile)
     print('Finished')
 
 
