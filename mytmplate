@@ -48,7 +48,7 @@
                  {% for colorGroup in colors %}
                   <tr>
                   {% for color in colorGroup %}
-                        <td style="background-color:{{ color}}"></td>
+                        <td title = {{ color[1] }} style="background-color:{{ color[0]}}"></td>
                   {% endfor %}
                   </tr>
                  {% endfor %}

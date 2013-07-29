@@ -50,14 +50,14 @@ def main():
     outputFile = sys.argv[2]
     templateFile = "mytmplate"
     language = sys.argv[3]
-    groupCount = 30
+    groupCount = 35
     colorReader = {}
     if language == 'ru':
         with open('russian_colors.csv', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             colorReader = {compreh(rows[0]): rows[1] for rows in reader}
 
-    input_file = open(incomeFile)
+    input_file = open(incomeFile, encoding='utf-8')
     colors = []
     for line in input_file:
         words = line.split()
@@ -65,7 +65,7 @@ def main():
             word = re.sub(r'[^\w-]', '', word)
             rgbColor = getHexColorByName(word, language, colorReader)
             if rgbColor is not None:
-                colors.append(rgbColor)
+                colors.append((rgbColor,word))
     groupedItems = list(Grouper(groupCount, colors))
     WriteHtml(groupedItems, outputFile, templateFile)
     print('Finished')
