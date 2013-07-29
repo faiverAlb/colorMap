@@ -22,11 +22,18 @@ def Grouper(n, iterable):
     return ([e for e in t if e is not None] for t in itertools.zip_longest(*args))
 
 
+def compreh(f):
+    if len(f) - 2 > 3:
+        return f[:-2]
+    return f
+
+
 def getHexColorByName(name, language, colorReader=None):
     if not colorReader: colorReader = {}
     if language == "ru":
-        if name.lower() in colorReader:
-            return colorReader[name.lower()]
+        for color in colorReader:
+            if color in name.lower() and len(color) >= 3:
+                return colorReader[color]
         return None
     try:
         color = webcolors.name_to_hex(name)
@@ -48,7 +55,7 @@ def main():
     if language == 'ru':
         with open('russian_colors.csv', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
-            colorReader = {rows[0]:rows[1] for rows in reader}
+            colorReader = {compreh(rows[0]): rows[1] for rows in reader}
 
     input_file = open(incomeFile)
     colors = []
@@ -56,7 +63,7 @@ def main():
         words = line.split()
         for word in words:
             word = re.sub(r'[^\w-]', '', word)
-            rgbColor = getHexColorByName(word, language,colorReader)
+            rgbColor = getHexColorByName(word, language, colorReader)
             if rgbColor is not None:
                 colors.append(rgbColor)
     groupedItems = list(Grouper(groupCount, colors))
